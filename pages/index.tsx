@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import { Card, Button } from 'react-daisyui';
+import { Card, Button, Avatar, Carousel } from 'react-daisyui';
 import {
     FaGithub,
     FaSoundcloud,
@@ -12,6 +12,7 @@ import {
 import avatar from '@/assets/avatar.png';
 import portrait from '@/assets/portrait.png';
 import BgWave from '@/assets/bg-wave.svg';
+import avatarNew from '@/assets/avatar-new.png';
 import Emoji from '@/components/emoji';
 
 export default function Home() {
@@ -21,8 +22,8 @@ export default function Home() {
                 <title>Adrian Karlén</title>
             </Head>
             <main>
-                <div className="from-primary to-secondary text-primary-content grid place-items-center items-end bg-gradient-to-br ">
-                    <div className="col-start-1 row-start-1 grid grid-rows-2 grid-cols-2 grid-flow-row text-base-content glass xl:rounded-box max-w-screen-xl gap-4 bg-opacity-60 my-10">
+                <div className="from-primary to-secondary text-primary-content grid place-items-center items-end bg-gradient-to-br xl:min-h-screen xl:max-h-screen">
+                    <div className="col-start-1 row-start-1 grid grid-rows-2 grid-cols-2 grid-flow-row text-base-content glass xl:rounded-box max-w-screen-xl gap-4 bg-opacity-60">
                         <div className="row-span-1 col-span-1 pl-4 pt-4">
                             <div className="grid grid-rows-2 grid-cols-3 grid-flow-row gap-4 min-h-full">
                                 <div className="row-span-1 col-span-3">
@@ -73,7 +74,7 @@ export default function Home() {
                             </div>
                         </div>
                         <div className="row-span-1 col-span-1 pr-4 pt-4">
-                            <div className="grid grid-row-6 grid-col-2 grid-flow-row gap-4 minh-full">
+                            <div className="grid grid-row-6 grid-col-2 grid-flow-row gap-4 min-h-full">
                                 <div className="row-span-1 col-span-2">
                                     <Card className="bg-base-300 h-full">
                                         <Card.Body className="place-content-center min-h-full">
@@ -94,11 +95,16 @@ export default function Home() {
                                                         Contact me!
                                                     </span>
                                                 </Button>
-                                                <Image
-                                                    src={avatar}
-                                                    className="rounded-full w-10 h-10"
-                                                    alt="avatar"
-                                                />
+                                                <Avatar
+                                                    shape="circle"
+                                                    size="xs"
+                                                >
+                                                    <Image
+                                                        src={avatar}
+                                                        alt="avatar"
+                                                        className="bg-secondary"
+                                                    />
+                                                </Avatar>
                                             </div>
                                         </Card.Body>
                                     </Card>
@@ -108,7 +114,7 @@ export default function Home() {
                                         <Card.Body className="items-center place-content-end p-0">
                                             <Image
                                                 src={portrait}
-                                                className="w-72 rounded-box"
+                                                className="w-72 rounded-box blur-2xl"
                                                 alt="portrait"
                                             />
                                         </Card.Body>
@@ -118,7 +124,7 @@ export default function Home() {
                                     <Card className="bg-base-300 h-full">
                                         <Card.Body className="p-4">
                                             <div className="flex flex-row justify-between gap-4">
-                                                <h4 className="text-md font-light text-slate-500">
+                                                <h4 className="text-md text-slate-500">
                                                     Name:
                                                 </h4>
                                                 <h4 className="text-md font-bold text-white">
@@ -203,6 +209,25 @@ export default function Home() {
                                                     Portfolio
                                                 </span>
                                             </h4>
+                                            <Carousel
+                                                display='sequential'
+                                                snap='center'
+                                            >
+                                                <Carousel.Item>
+                                                    <Image
+                                                        src={avatarNew}
+                                                        alt="stock1"
+                                                        className="rounded-box"
+                                                    />
+                                                </Carousel.Item>
+                                                <Carousel.Item>
+                                                    <Image
+                                                        src={portrait}
+                                                        alt="stock2"
+                                                        className="rounded-box blur-xl h-96"
+                                                    />
+                                                </Carousel.Item>
+                                            </Carousel>
                                         </Card.Body>
                                     </Card>
                                 </div>
