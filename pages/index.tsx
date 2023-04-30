@@ -1,3 +1,4 @@
+import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { Card, Button, Avatar, Carousel } from 'react-daisyui';
@@ -14,15 +15,35 @@ import portrait from '@/assets/portrait.png';
 import BgWave from '@/assets/bg-wave.svg';
 import avatarNew from '@/assets/avatar-new.png';
 import Emoji from '@/components/emoji';
+import { MouseEvent, useState } from 'react';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-export default function Home() {
+type Props = {};
+
+const Home = (_props: InferGetStaticPropsType<typeof getStaticProps>) => {
+    const { t } = useTranslation('common');
+    const [showModal, setShowModal] = useState(false);
+    const modalProps = {
+        title: 'Modal title',
+        content: 'Modal content',
+        footer: 'Modal footer',
+        onClose: () => setShowModal(false),
+    };
+
+    // Mouseevent click image
+    const onOpenModalClick = (e: MouseEvent<HTMLImageElement>) => {
+        e.preventDefault();
+        setShowModal(true);
+    };
+
     return (
         <div>
             <Head>
-                <title>Adrian Karlén</title>
+                <title>{t('personal-info.name')}</title>
             </Head>
             <main>
-                <div className="from-primary to-secondary text-primary-content grid place-items-center items-end bg-gradient-to-br xl:min-h-screen xl:max-h-screen">
+                <div className="from-base-100 to-base-300 text-primary-content grid place-items-center items-end bg-gradient-to-br xl:min-h-screen xl:max-h-screen">
                     <div className="col-start-1 row-start-1 grid grid-rows-2 grid-cols-2 grid-flow-row text-base-content glass xl:rounded-box max-w-screen-xl gap-4 bg-opacity-60">
                         <div className="row-span-1 col-span-1 pl-4 pt-4">
                             <div className="grid grid-rows-2 grid-cols-3 grid-flow-row gap-4 min-h-full">
@@ -30,47 +51,30 @@ export default function Home() {
                                     <Card className="bg-base-300 h-full">
                                         <Card.Body className="items-left place-content-center">
                                             <h1 className="text-6xl font-extrabold text-white">
-                                                Code that bridges the gap.
+                                                {t('slogan')}
                                             </h1>
                                         </Card.Body>
                                     </Card>
                                 </div>
-                                <div className="row-span-1 col-span-1">
-                                    <Card className="bg-success h-full">
-                                        <Card.Body className="items-center place-content-center p-0">
-                                            <h2 className="text-6xl font-black text-white">
-                                                4+
-                                            </h2>
-                                            <span className="font-bold text-white">
-                                                Years experience
-                                            </span>
-                                        </Card.Body>
-                                    </Card>
-                                </div>
-                                <div className="row-span-1 col-span-1">
-                                    <Card className="bg-warning h-full">
-                                        <Card.Body className="items-center place-content-center p-0">
-                                            <h2 className="text-6xl font-black text-white">
-                                                15+
-                                            </h2>
-                                            <span className="font-bold text-white">
-                                                Different clients
-                                            </span>
-                                        </Card.Body>
-                                    </Card>
-                                </div>
-                                <div className="row-span-1 col-span-1">
-                                    <Card className="bg-error h-full">
-                                        <Card.Body className="items-center place-content-center p-0">
-                                            <h2 className="text-6xl font-black text-white">
-                                                20+
-                                            </h2>
-                                            <span className="font-bold text-white">
-                                                Projects
-                                            </span>
-                                        </Card.Body>
-                                    </Card>
-                                </div>
+                                {Object.entries(
+                                    t('metrics', { returnObjects: true })
+                                ).map(([key, item]) => (
+                                    <div
+                                        key={key}
+                                        className="row-span-1 col-span-1"
+                                    >
+                                        <Card className={'bg-warning h-full'}>
+                                            <Card.Body className="items-center place-content-center p-0">
+                                                <h2 className="text-6xl font-black text-white">
+                                                    {item.value}
+                                                </h2>
+                                                <span className="font-bold text-white">
+                                                    {item.unit}
+                                                </span>
+                                            </Card.Body>
+                                        </Card>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                         <div className="row-span-1 col-span-1 pr-4 pt-4">
@@ -92,7 +96,9 @@ export default function Home() {
                                                     }
                                                 >
                                                     <span className="text-white normal-case text-lg">
-                                                        Contact me!
+                                                        {t(
+                                                            'contact.injunction'
+                                                        )}
                                                     </span>
                                                 </Button>
                                                 <Avatar
@@ -114,7 +120,7 @@ export default function Home() {
                                         <Card.Body className="items-center place-content-end p-0">
                                             <Image
                                                 src={portrait}
-                                                className="w-72 rounded-box blur-2xl"
+                                                className="w-72 rounded-box"
                                                 alt="portrait"
                                             />
                                         </Card.Body>
@@ -125,10 +131,12 @@ export default function Home() {
                                         <Card.Body className="p-4">
                                             <div className="flex flex-row justify-between gap-4">
                                                 <h4 className="text-md text-slate-500">
-                                                    Name:
+                                                    {t(
+                                                        'personal-info.labels.name'
+                                                    )}
                                                 </h4>
                                                 <h4 className="text-md font-bold text-white">
-                                                    Adrian Karlén
+                                                    {t('personal-info.name')}
                                                 </h4>
                                             </div>
                                         </Card.Body>
@@ -139,10 +147,14 @@ export default function Home() {
                                         <Card.Body className="p-4">
                                             <div className="flex flex-row justify-between gap-4">
                                                 <h4 className="text-md text-slate-500">
-                                                    Based:
+                                                    {t(
+                                                        'personal-info.labels.location'
+                                                    )}
                                                 </h4>
                                                 <span className="text-md font-bold text-white">
-                                                    Stockholm, Sweden
+                                                    {t(
+                                                        'personal-info.location'
+                                                    )}
                                                 </span>
                                             </div>
                                             <FaMapMarked
@@ -202,29 +214,32 @@ export default function Home() {
                         <div className="row-span-1 col-span-2 px-4 pb-4">
                             <div className="grid grid-row-auto grid-col-12 grid-flow-col gap-4 min-h-full">
                                 <div className="col-span-7">
-                                    <Card className="bg-base-300 h-full">
-                                        <Card.Body>
+                                    <Card className="bg-base-300 w-full h-full">
+                                        <Card.Body className="h-full">
                                             <h4 className="flex flex-row justify-between gap-4">
                                                 <span className="text-3xl font-bold text-white">
                                                     Portfolio
                                                 </span>
                                             </h4>
                                             <Carousel
-                                                display='sequential'
-                                                snap='center'
+                                                display="sequential"
+                                                snap="center"
                                             >
                                                 <Carousel.Item>
                                                     <Image
                                                         src={avatarNew}
                                                         alt="stock1"
-                                                        className="rounded-box"
+                                                        className="rounded-box h-96 w-auto"
                                                     />
                                                 </Carousel.Item>
                                                 <Carousel.Item>
                                                     <Image
                                                         src={portrait}
                                                         alt="stock2"
-                                                        className="rounded-box blur-xl h-96"
+                                                        className="rounded-box h-96 w-auto"
+                                                        onClick={
+                                                            onOpenModalClick
+                                                        }
                                                     />
                                                 </Carousel.Item>
                                             </Carousel>
@@ -245,9 +260,17 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                    <BgWave className="col-start-1 row-start-1 fill-secondary h-auto w-full" />
+                    <BgWave className="col-start-1 row-start-1 fill-base-100 h-auto w-full" />
                 </div>
             </main>
         </div>
     );
-}
+};
+
+export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => ({
+    props: {
+        ...(await serverSideTranslations(locale ?? 'en', ['common'])),
+    },
+});
+
+export default Home;

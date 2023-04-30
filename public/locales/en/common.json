@@ -1,0 +1,48 @@
+{
+    "slogan": "Code that bridges the gap.",
+    "metrics": {
+        "time": {
+            "value": "4+",
+            "unit": "Years experience"
+        },
+        "projects": {
+            "value": "20+",
+            "unit": "Projects"
+        },
+        "clients": {
+            "value": "15+",
+            "unit": "Different lients"
+        }
+    },
+    "contact": {
+        "injunction": "Contact me!",
+        "email": "akarlen@pm.me"
+    },
+    "personal-info": {
+        "labels": {
+            "name": "Name",
+            "title": "Title",
+            "location": "Based"
+        },
+        "name": "Adrian Karlén",
+        "title": "Full Stack Developer",
+        "location": "Stockholm, Sweden"
+    },
+    "links": {
+        "github": "https://github.com/adriankarlen",
+        "soundcloud": "https://soundcloud.com/jungeladdel",
+        "linkedin": "https://www.linkedin.com/in/adrian-karlen/",
+        "instagram": "https://www.instagram.com/adriankarlen/"
+    },
+    "projects": [
+        {
+            "name": "Portfolio",
+            "description": "Open source portfolio website. The one you are currently browsing. Built using next.js, Tailwind and DiasyUI.",
+            "link": "https://github.com/adriankarlen/portfolio"
+        }
+    ],
+    "about": {
+        "header": "A fullstack developer from Stockholm, Sweden.",
+        "paragraph": "Hi, my name is Adrian Karlén and I am a {{age}} software developer based in Stockholm. My main focus is web development and I have previous work experience with technologies such as React, PHP, JS/TS and .NET. My everyday work have consisted of developing web-based business systems, e-commerce systems and customer portals. This have also included integration with external systems. I am currently working as a consultant at {{company}}."
+    }
+}
